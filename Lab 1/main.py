@@ -46,8 +46,10 @@ def advertise_ospf_interface(device_config):
     connection.enable()
     # Get ip address of an interface
     interface_ip = get_interface_ip(connection, 'Gi0/1')
+    print("We will be advertising {} on {}".format(interface_ip, device_config["ip"]))
     # Start ospf and advertise interface
     configure_ospf(connection, interface_ip)
+    print("Configured OSPF on {}".format(device_config["ip"]))
     # Verify config
     verify_ospf_config(connection)
     # Close the connection
@@ -79,7 +81,6 @@ def main():
 
     for rtr in routers:
         advertise_ospf_interface(rtr)
-        print("Configured {}".format(rtr["ip"]))
 
 
 if __name__ == "__main__":
